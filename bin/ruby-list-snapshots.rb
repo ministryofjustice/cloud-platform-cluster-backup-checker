@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
+require "aws-sdk-core"
+require "aws-sdk-iam"
 require "aws-sdk-ec2"
 require "date"
 require "slack-notifier"
@@ -56,11 +58,20 @@ end
 
 #####################################################
 
+role_arn = "arn:aws:iam::"+ENV.fetch('ACCOUNT_ID')+":role/"+ENV.fetch('ROLE_NAME')       
+role_session_name = "cluster_backup_checker_session"
+puts role_arn
+
+role_credentials = Aws::AssumeRoleCredentials.new(
+  role_arn: role_arn,
+  role_session_name: role_session_name
+)
+
+puts role_credentials
+
 client = Aws::EC2::Client.new(
   region: ENV.fetch('AWS_REGION'),
-  credentials: Aws::Credentials.new(
-    ENV.fetch('AWS_ACCESS_KEY_ID'), ENV.fetch('AWS_SECRET_ACCESS_KEY')
-  )
+  credentials: role_credentials
 )
 
 opts = {
@@ -84,5 +95,3 @@ if days_old > 1
 else
   puts "Cluster backup snapshots are recent. Time checked: "+current_time.inspect
 end
-
- 

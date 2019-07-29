@@ -1,8 +1,10 @@
 # Cluster backup checker
 
-Ruby script that checks the cluster backups are recent and send slack notifications if it could not find a recent backup.
 
-All clusters managed by Cloud Platform has a snapshot lifecycle policy to take backup snapshots of all master nodes(etcd) volumes.
+Ruby script 
+All clusters managed by Cloud Platform have a snapshot lifecycle policy that take backup snapshots of all master nodes(etcd) volumes.
+
+This Ruby script checks that there has been a recent cluster backup and send a slack notification if there has not been one.
 
 This project runs as a kubernetes cronjob and will require specific IAM role and permissions. It cannot be run locally.
 
@@ -42,7 +44,8 @@ This project requires an IAM role with the following permissions *'ec2:DescribeS
 
 This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the depolyment, refer https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf
 
-This script require the following environment variables and are provided using terraform variables.
+THe following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and are passed to the script when applying terraform. Therefore you do not need to setup these.
+
 ```
 ACCOUNT_ID <Account ID of your AWS account>
 ROLE_NAME <Name of the IAM role created with correct permissions>

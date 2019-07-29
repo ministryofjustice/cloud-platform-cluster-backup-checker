@@ -1,6 +1,10 @@
 # Cluster backup checker
 
+<<<<<<< HEAD
 Ruby code that checks the cluster backup snapshots are recent and less that 24 hours old. This script will send slack notifications if it could not find a recent snapshot. Specify the cluster_name as a environment variable ```KUBERBETES_CLUSTER <cluster name>``` for which cluster you want to check the snapshot backup. 
+=======
+Ruby code that checks the cluster backup snapshots ran regularly and successfully. Specify the cluster_name as a environment variable ```KUBERBETES_CLUSTER <cluster name>``` for which clusteryou want to check the snapshot backup. 
+>>>>>>> b245737e575ec5c3b83e2d86e68f298301fc22ad
 
 ## Installation
 

@@ -1,7 +1,5 @@
 # Cluster backup checker
 
-
-Ruby script 
 All clusters managed by Cloud Platform have a snapshot lifecycle policy that take backup snapshots of all master nodes(etcd) volumes.
 
 This Ruby script checks that there has been a recent cluster backup and send a slack notification if there has not been one.

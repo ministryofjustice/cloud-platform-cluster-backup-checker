@@ -20,30 +20,42 @@ You need to have AWS CLI installed
 ```brew install awscli```
 
 ## Usage
-A repository has been created on the AWS account *'cloud-platform-aws'* called *'754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker'*. You can build, tag and push to your own ECR repository and refer it in the Cronjob
+A repository has been created on the AWS account *'cloud-platform-aws'* called *'754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker'*. 
 
-1) Login to Amazon ECR.
-```$(aws ecr get-login --no-include-email --region eu-west-2)```
+You can build, tag and push to your own ECR repository and use it to run as a cronjob or as a pod in your own namespace. 
+
+1) Login to Amazon ECR. 
+
+```
+$(aws ecr get-login --no-include-email --region eu-west-2)
+```
+
 You should have AWS credentials(access_key_id and secret_access_key) to login to ECR.
 
 2) Build your Docker image using the following command.
 
-```docker build -t cloud-platform/cluster-backup-checker .```
+```
+docker build -t cloud-platform/cluster-backup-checker .
+```
 
 3) After the build completes, tag your image so you can push the image to the AWS ECR repository:
 
-```docker tag cloud-platform/cluster-backup-checker:latest 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest```
+```
+docker tag cloud-platform/cluster-backup-checker:latest 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest
+```
 
 4) Run the following command to push this image to the AWS ECR repository:
 
-```docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest```
+```
+docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest
+```
 
 ## Cluster environment and deployment
 This project requires an IAM role with the following permissions *'ec2:DescribeSnapshots'*.
 
 This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the depolyment, refer https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf
 
-THe following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and these are passed to the script when applying terraform. Therefore you do not need to setup these.
+The following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and these are passed to the script when applying terraform. Therefore you do not need to setup these.
 
 ```
 ACCOUNT_ID <Account ID of your AWS account>

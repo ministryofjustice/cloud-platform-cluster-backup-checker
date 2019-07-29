@@ -1,10 +1,11 @@
 # Cluster backup checker
 
-All clusters managed by Cloud Platform have a snapshot lifecycle policy that take backup snapshots of all master nodes(etcd) volumes.
 
-This Ruby script checks that there has been a recent cluster backup and send a slack notification if there has not been one.
+All clusters managed by Cloud Platform have a snapshot lifecycle policy. This policy takes a snapshot of all volumes tagged with master.
 
-This project runs as a kubernetes cronjob and will require specific IAM role and permissions. It cannot be run locally.
+This Ruby script checks that there has been a recent snapshot and will send a slack notification if there has not been one.
+
+This project runs as a kubernetes cronjob and requires a specific IAM role and permissions. It cannot be run locally.
 
 ## Installation
 
@@ -38,11 +39,11 @@ You should have AWS credentials(access_key_id and secret_access_key) to login to
 ```docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest```
 
 ## Cluster environment and deployment
-This project requires an IAM role with the following permissions *'ec2:DescribeSnapshots'* to apply on all EBS snapshots.
+This project requires an IAM role with the following permissions *'ec2:DescribeSnapshots'*.
 
 This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the depolyment, refer https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf
 
-THe following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and are passed to the script when applying terraform. Therefore you do not need to setup these.
+THe following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and these are passed to the script when applying terraform. Therefore you do not need to setup these.
 
 ```
 ACCOUNT_ID <Account ID of your AWS account>

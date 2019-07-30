@@ -1,6 +1,5 @@
 # Cluster backup checker
 
-
 All clusters managed by Cloud Platform have a snapshot lifecycle policy. This policy takes a snapshot of all volumes tagged with *'master'*.
 
 This Ruby script checks that there has been a recent snapshot and will send a slack notification if there has not been one.

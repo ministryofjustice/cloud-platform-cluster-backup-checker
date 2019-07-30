@@ -1,8 +1,6 @@
 # Cluster backup checker
 
-
 All kubernetes clusters managed by Cloud Platform have a data lifecycle policy. This policy takes a [snapshot of all etcd master node volumes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) which are tagged with *'k8s.io/role/master:1'*.
-
 
 This Ruby script checks that there has been a recent snapshot and will send a slack notification if there has not been one.
 

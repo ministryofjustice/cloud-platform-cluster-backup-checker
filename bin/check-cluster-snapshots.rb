@@ -20,11 +20,10 @@ def main
     check_prerequisites
 
     role_arn = "arn:aws:iam::"+env('ACCOUNT_ID')+":role/"+env('ROLE_NAME')       
-    role_session_name = "cluster_backup_checker_session"
 
     role_credentials = Aws::AssumeRoleCredentials.new(
     role_arn: role_arn,
-    role_session_name: role_session_name
+    role_session_name: "cluster_backup_checker_session"
     )
 
     client = Aws::EC2::Client.new(

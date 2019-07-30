@@ -41,13 +41,13 @@ docker build -t cloud-platform/cluster-backup-checker .
 3) After the build completes, tag your image so you can push the image to the AWS ECR repository:
 
 ```
-docker tag cloud-platform/cluster-backup-checker:latest 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest
+docker tag cloud-platform/cluster-backup-checker:latest 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:<VERSION>
 ```
 
 4) Run the following command to push this image to the AWS ECR repository:
 
 ```
-docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:latest
+docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-backup-checker:<VERSION>
 ```
 
 ## Cluster environment and deployment
@@ -55,7 +55,7 @@ This project requires an IAM role with the following permissions *'ec2:DescribeS
 
 This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the depolyment, refer https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf
 
-The following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'*. and these are passed to the script when applying terraform. Therefore you do not need to setup these.
+The following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'* and these are passed to the script when applying terraform. Therefore you do not need to setup these.
 
 ```
 ACCOUNT_ID <Account ID of your AWS account>

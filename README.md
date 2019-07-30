@@ -1,7 +1,8 @@
 # Cluster backup checker
 
 
-All clusters managed by Cloud Platform have a snapshot lifecycle policy. This policy takes a snapshot of all volumes tagged with *'master'*.
+All kubernetes clusters managed by Cloud Platform have a data lifecycle policy. This policy takes a [snapshot of all etcd master node volumes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) which are tagged with *'k8s.io/role/master:1'*.
+
 
 This Ruby script checks that there has been a recent snapshot and will send a slack notification if there has not been one.
 
@@ -53,9 +54,9 @@ docker push 754256621582.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/cluster-
 ## Cluster environment and deployment
 This project requires an IAM role with the following permissions *'ec2:DescribeSnapshots'*.
 
-This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the depolyment, refer https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf
+This script runs as a Kubernetes CronJob in the monitoring namespace on live-1 cluster. For more information on the deployment, refer [cloud-platform-infrastructure/terraform/cloud-platform-components/cluster-backup-checker.tf](https://github.com/ministryofjustice/cloud-platform-infrastructure/blob/master/terraform/cloud-platform-components/cluster-backup-checker.tf)
 
-The following environment variables are set using terraform with *'cloud-platform-infrastructure/terraform/cloud-platform-components'* and these are passed to the script when applying terraform. Therefore you do not need to setup these.
+The following environment variables are set using terraform with *'[cloud-platform-infrastructure/terraform/cloud-platform-components](https://github.com/ministryofjustice/cloud-platform-infrastructure/tree/master/terraform/cloud-platform-components)'* and these are passed to the script when applying terraform. Therefore you do not need to setup these.
 
 ```
 ACCOUNT_ID <Account ID of your AWS account>

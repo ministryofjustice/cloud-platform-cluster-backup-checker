@@ -9,12 +9,13 @@ RUN addgroup -g 1000 -S appgroup && \
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+RUN gem install bundler
 
-RUN bundle install --without development
+COPY Gemfile* ./
+RUN bundle install
 
-COPY bin ./bin
+COPY . .
 
 USER 1000
 
-CMD ["ruby", "./bin/check-cluster-snapshots.rb"]
+CMD ["ruby", "./bin/access-es-srb.rb"]

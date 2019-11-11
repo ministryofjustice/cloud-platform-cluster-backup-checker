@@ -5,6 +5,8 @@ require "aws-sdk-iam"
 require "aws-sdk-ec2"
 require "date"
 require 'aws-sdk-elasticsearchservice'
+require "net/http"
+require "uri"
 
 
 
@@ -18,7 +20,6 @@ def main
     role_session_name: "es-session"
   )
   
-  Aws.config.update(credentials: role_credentials)
 
   # creds = Aws::EC2::Client.new(
   #   region: "eu-west-2",
@@ -45,21 +46,10 @@ def main
   }
   }
 
+
+
   region = 'eu-west-2' # e.g. us-west-1
   service = 'es'
-
-  # client = Faraday.new(url: host) do |f|
-  #   f.request :aws_sigv4,
-  #     access_key_id: role_credentials.credentials.access_key_id,
-  #     secret_access_key: role_credentials.credentials.secret_access_key,
-  #     session_token: role_credentials.credentials.session_token,
-  #     service: 'es',
-  #     region: region
-
-  #   f.adapter Faraday.default_adapter
-  # end
-
-  # res = client.get '/index'
 
   signer = Aws::Sigv4::Signer.new(
     service: service,
@@ -68,6 +58,8 @@ def main
     secret_access_key: role_credentials.credentials.secret_access_key,
     session_token: role_credentials.credentials.session_token
   )
+  
+  puts signer
   
   signature = signer.sign_request(
     http_method: 'PUT',
@@ -87,8 +79,47 @@ def main
     request['Authorization'] = signature.headers['authorization']
     request['Content-Type'] = 'application/json'
     response = http.request request
-    puts response.body
+    puts response.code + response.body
   end
+
+
+  document = {
+    "size": 20,
+    "sort": {
+      "year": {
+        "order": "desc"
+      }
+    },
+    "query": {
+      "query_string": {
+        "default_field": "info",
+        "query": "young"
+      }
+    }
+  }
+
+
+  signature = signer.sign_request(
+    http_method: 'POST',
+    url: host + '/' + index + '/_search',
+    body: document.to_json
+  )
+
+  uri = URI(host + '/' + index + '/_search')
+  
+  Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+    request = Net::HTTP::Post.new uri
+    request.body = document.to_json
+    request['Host'] = signature.headers['host']
+    request['X-Amz-Date'] = signature.headers['x-amz-date']
+    request['X-Amz-Security-Token'] = signature.headers['x-amz-security-token']
+    request['X-Amz-Content-Sha256']= signature.headers['x-amz-content-sha256']
+    request['Authorization'] = signature.headers['authorization']
+    request['Content-Type'] = 'application/json'
+    response = http.request request
+    puts response.code + response.body
+  end
+
   
 end
 

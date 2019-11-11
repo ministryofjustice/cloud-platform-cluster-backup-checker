@@ -36,9 +36,9 @@ def main
   host = 'https://vpc-cloud-platform-example-es-6myhvvkxaxzd4nyxpwvw2eyyyu.eu-west-2.es.amazonaws.com' # e.g. https://my-domain.region.es.amazonaws.com
   index = 'ruby-index'
   type = '_doc'
-  id = '1'
+  id = '2'
   document = {
-  year: 2007,
+  year: 2008,
   title: '5 Centimeters per Second',
   info: {
     plot: 'Told in three interconnected segments, we follow a young man named Takaki through his life.',
@@ -84,7 +84,7 @@ def main
 
 
   document = {
-    "size": 20,
+    "size": 1,
     "sort": {
       "year": {
         "order": "desc"
@@ -92,7 +92,6 @@ def main
     },
     "query": {
       "query_string": {
-        "default_field": "info",
         "query": "young"
       }
     }

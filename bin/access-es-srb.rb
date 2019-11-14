@@ -13,7 +13,7 @@ require "uri"
 def main
   # check_prerequisites
   ENV['AWS_REGION'] = "eu-west-2"
-  role_arn = "arn:aws:iam::754256621582:role/cloud-platform-f9dc126baed8e66b"
+  role_arn = "arn:aws:iam::754256621582:role/cloud-platform-e57bab8894498ca3"
 
   role_credentials = Aws::AssumeRoleCredentials.new(
     role_arn: role_arn,

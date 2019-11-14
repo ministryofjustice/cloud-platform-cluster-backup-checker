@@ -18,4 +18,4 @@ COPY . .
 
 USER 1000
 
-CMD ["ruby", "./bin/access-es-srb.rb"]
+CMD ["ruby", "./bin/access-es-svc.rb"]

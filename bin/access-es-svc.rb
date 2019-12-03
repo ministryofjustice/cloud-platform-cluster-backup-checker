@@ -1,25 +1,25 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+require "aws-sdk-iam"
+require "aws-sdk-ec2"
 require "date"
+require 'aws-sdk-elasticsearchservice'
 require "net/http"
 require "uri"
-require "sqlite3"
-require "sqlite3-ruby"
-require "random_word_generator"
 
 def main
 
   host = 'http://aws-es-proxy-service:9200' # e.g. https://my-domain.region.es.amazonaws.com
   index = 'ruby-index'
   type = '_doc'
-  id = rand(4)
+  id = '2'
   document = {
   year: 2008,
-  title: 'Profiles',
+  title: 'A test title for elasticsearch',
   info: {
-    profile: RandomWordGenerator.composed(14, 500)
-    rating: 5.0
+    plot: 'This is a description to test elasticsearch with ruby code. This should add an index ruby-index and should be able to search with any string mentioned here',
+    rating: 7.7
   }
   }
 
@@ -44,7 +44,7 @@ def main
     },
     "query": {
       "query_string": {
-        "query": "young"
+        "query": "elasticsearch"
       }
     }
   }

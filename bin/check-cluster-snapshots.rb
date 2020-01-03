@@ -20,6 +20,10 @@ def main
 
   role_arn = "arn:aws:iam::" + env("ACCOUNT_ID") + ":role/" + env("ROLE_NAME")
 
+  puts "#{Time.new} Will sleep for #{n} seconds"
+  sleep(rand(20))
+  puts "#{Time.new} Waking now..."
+  
   role_credentials = Aws::AssumeRoleCredentials.new(
     role_arn: role_arn,
     role_session_name: "cluster_backup_checker_session"

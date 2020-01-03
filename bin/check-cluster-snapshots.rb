@@ -22,8 +22,7 @@ def main
 
   puts "#{Time.new} Will sleep for #{n} seconds"
   sleep(rand(20))
-  puts "#{Time.new} Yielding now..."
-  yield
+  puts "#{Time.new} Waking now..."
   
   role_credentials = Aws::AssumeRoleCredentials.new(
     role_arn: role_arn,

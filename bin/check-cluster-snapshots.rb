@@ -19,9 +19,10 @@ def main
   check_prerequisites
 
   role_arn = "arn:aws:iam::" + env("ACCOUNT_ID") + ":role/" + env("ROLE_NAME")
-
+  
+  n = rand(20)
   puts "#{Time.new} Will sleep for #{n} seconds"
-  sleep(rand(20))
+  sleep(n)
   puts "#{Time.new} Waking now..."
   
   role_credentials = Aws::AssumeRoleCredentials.new(

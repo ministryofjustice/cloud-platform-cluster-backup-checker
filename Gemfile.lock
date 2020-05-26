@@ -1,14 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (6.0.2.1)
-      activesupport (= 6.0.2.1)
-    activesupport (6.0.2.1)
+    activemodel (6.0.3.1)
+      activesupport (= 6.0.3.1)
+    activesupport (6.0.3.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-      zeitwerk (~> 2.2)
+      zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     aes_key_wrap (1.0.1)
@@ -28,10 +28,10 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
-    bindata (2.4.4)
+    bindata (2.4.7)
     byebug (11.0.1)
     coderay (1.1.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.11.3)
@@ -50,10 +50,10 @@ GEM
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
     httpclient (2.8.3)
-    i18n (1.7.0)
+    i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
-    json-jwt (1.11.0)
+    json-jwt (1.12.0)
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
@@ -68,7 +68,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     mini_mime (1.0.2)
-    minitest (5.13.0)
+    minitest (5.14.1)
     netrc (0.11.0)
     openid_connect (1.1.8)
       activemodel
@@ -87,13 +87,13 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     public_suffix (4.0.2)
-    rack (2.0.8)
-    rack-oauth2 (1.10.1)
+    rack (2.2.2)
+    rack-oauth2 (1.14.0)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
-      rack
+      rack (>= 2.1.0)
     rake (13.0.1)
     recursive-open-struct (1.1.0)
     rest-client (2.1.0)
@@ -102,12 +102,12 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     slack-notifier (2.3.2)
-    swd (1.1.2)
+    swd (1.2.0)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.4)
     thread_safe (0.3.6)
-    tzinfo (1.2.6)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.3)
       tzinfo (>= 1.0.0)
@@ -123,7 +123,7 @@ GEM
     webfinger (1.1.0)
       activesupport
       httpclient (>= 2.4)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby

@@ -1,5 +1,5 @@
 IMAGE := ministryofjustice/cluster-backup-checker
-VERSION := 1.4
+VERSION := 1.5
 
 build: .built-image
 
